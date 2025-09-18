@@ -9,3 +9,15 @@ Book.create!(title: '1984')
 Book.create!(title: 'Pride and Prejudice')
 Book.create!(title: "Dr. Fart's Trip to Brussels")
 
+# Create sample users
+u1 = User.find_or_create_by!(username: 'alice')
+u2 = User.find_or_create_by!(username: 'bob')
+u3 = User.find_or_create_by!(username: 'charlie')
+
+# Associate some books to users
+books = Book.all.to_a
+User.find_each do |user|
+  books.sample(2).each do |book|
+    UserBook.find_or_create_by!(user: user, book: book)
+  end
+end
